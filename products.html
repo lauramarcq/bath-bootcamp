@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+            footer{
+                font-size: 15px;
+            }
+            
+            header{
+                background: silver;
+                font-size: 10px;
+            }
+            
+            main{
+                font-size: 20px;
+            }
+
+            main img{
+                display: inline-block;
+                width: 5em;
+            }
+
+            main img.big{
+                width: 15em;
+            }
+            main img.small{
+                width: 3em;
+            }
+
+
+            .bordered{
+                border: 5px solid blue;
+            }
+
+            .display-highlight-bg{
+                background:orange;
+            }
+
+            .display-padded{
+                padding: 1.5em;
+            }
+
+            .display-size-width50{
+                width: 50%;
+            }
+
+            .display-size-width25{
+                width: 25%;
+            }
+
+            .product{
+                position: relative;
+                display: inline-block;
+                /*margin: .5em 128px .5em 0;*/
+                margin: .5em;
+                margin-right: 128px;
+                margin-left: 0;
+                border: 5px solid black;
+                /*width: 150px;*/
+                width: calc(25% - 10px - 1em);
+                /*width: calc(12vw - 10px - 1em);*/
+                /*width: 15em;*/
+                min-width: 6em;
+            }
+
+            .product h3{
+                position: absolute;
+                left: 3em;
+                top: 2em;
+            }
+
+
+            .slideshow{
+                position: relative;
+                height: 5em;
+                overflow: hidden;
+            }
+
+            .slideshow > *{
+                position: absolute;
+                width: 50%;
+                height: 100%;
+                top: 0;
+                transition: left 1s, opacity 1s;
+                margin: 0 auto 0 auto;
+            }
+
+            .slideshow.slideshow-default > *{
+                opacity: 0;
+                left: -25%;
+            }
+            .slideshow.slideshow-default > .active{
+                opacity: 1;
+                left: 25%;
+            }
+
+            .slideshow.slideshow-fadein > *{
+                opacity: 0;
+            }
+            .slideshow.slideshow-fadein > .active{
+                opacity: 1;
+            }
+
+            .slideshow.slideshow-slidein > *{
+                left: -25%;
+            }
+            .slideshow.slideshow-slidein > .active{
+                left: 25%;
+            }
+
+            .product:hover{
+                background: silver;
+                border-color: red;
+            }
+            .product .picture {
+                display: block;
+                width: 5em;
+                height: 5em;
+                background-position: center center;
+                background-size: cover;
+                border-radius: 100%;
+            }
+
+
+            img.highlight{
+                border: 5px solid greenyellow;
+            }
+
+
+            
+            /* SMALL SCREEN */
+            @media screen and (max-width:700px){
+                header{
+                    background: red;
+                }
+
+                .product{
+                    display: block;
+                }
+
+                .slideshow{
+                    height: 3em;
+                    background: red;
+                }
+            }
+
+            /* MEDIUM SCREEN */
+            @media (min-width:700px) and (max-width:1100px){
+                body{
+                    background: yellow;
+                }
+
+                .slideshow{
+                    height: 6em;
+                    background: green;
+                }
+            }
+
+            /* BIG SCREEN */
+            @media (min-width:1100px){
+                body{
+                    background: greenyellow;
+                }
+                .display-big-horizontal{
+                    display: inline-block;
+                }
+
+                .slideshow{
+                    height: 12em;
+                    background: blue;
+                    color: white;
+                }
+            }
+            
+
+            @media print{
+                body{
+                    color: green;
+                }
+            }
+            .popup{
+                display: block;
+                position: fixed;
+                top: 25%;
+                left: 25%;
+                width: 50%;
+                height: 50%;
+                background: white;
+                border: 10px solid black;
+                z-index: 1;
+                overflow: auto;
+            }
+
+            /* .popup.active {
+                display: block;
+            } */
+
+            .popup .popup--button {
+                cursor: pointer;
+                background-color: black;
+                color: red;
+                position: fixed;
+                z-index: 1;
+            }
+
+        </style>
+        
+    </head>
+    <body>
+        <nav>
+            This is the navigation section...
+        </nav>
+
+        <header class="display-padded">
+            <h1>Featured Product:</h1>
+            This is special promotion...
+            <section class="slideshow slideshow-default">
+            </section>
+        </header>
+
+        <div class="display-padded display-size-width25 bordered display-big-horizontal">
+            Name: <input type="text" onchange="data.name = this.value" value="abc" />
+            Price: <input type="number" onchange="data.price = this.value" />
+            Options: <input type="text" onchange="data.options = this.value.split(',')" />
+            <input type="button" value="Add Product" onclick="controls.addProduct(data)" />
+        </div>
+
+        <div class="display-padded display-highlight-bg display-size-width50">
+            <h2>Promotion box...</h2>
+        </div>
+        
+        <main class="display-padded display-size-width50 bordered display-big-horizontal">
+            This is the main section...
+            <h2>Category: Wearables</h2>
+            <section class="slideshow slideshow-fadein">
+                <img src="https://www.nextpoint.co.uk/-/img/logo.png" alt="logo" />
+                <h1>Message</h1>
+                <img class="big highlight" src="https://www.nextpoint.co.uk/-/img/logo.png" alt="logo" />
+                <img class="small" src="https://www.nextpoint.co.uk/-/img/logo.png" alt="logo" />
+                <img class="size-width50" src="https://www.nextpoint.co.uk/-/img/logo.png" alt="logo" />
+            </section>
+            <p>This is some type of introduction to the category....</p>
+        </main>
+
+        <footer>
+            This is the footer...
+            <section class="slideshow slideshow-slidein">
+                <h1 onclick="createPopup()">Footer 1</h1>
+                <h1 onclick="createPopup()">Footer 2</h1>
+                <h1 onclick="createPopup()">Footer 3</h1>
+            </section>
+        </footer>
+
+        <!-- <div class="popup">
+            <span class="popup--button" onclick="this.parentNode.classList.remove('active')">&times; Close</span>
+            <article>
+                <h1>Popup message</h1>
+            </article> -->
+            
+        </div>
+
+        <script>
+            let data = {};
+
+            let productList = [
+                {id:"101", name:"shoes", price:10, options:["red","black","green"], image: "https://images.riverisland.com/is/image/RiverIsland/brown-leather-lace-up-brogue-derby-shoes_393772_main?$ProductImagePortraitLarge$"},
+                {id:"102", name:"jacket", price:20, options:["yellow","blue","orange"]},
+                {id:"103", name:"skirt", price:35, options:["red","blue","white","black"], image: "https://cdn.media.amplience.net/i/lkbennett/UK_SS19_SK_MIROE_REDCHECK_POLYESTERMIXa?$PDPMain_DRetina$&img404=404"},
+                {id:"104", name:"jumper", price:35, options:["red","blue","white","black"]}
+            ];
+
+            let nodes = {
+                "featuredPromo": document.querySelector("header .slideshow"),
+                "main": document.querySelector("main"),
+                
+            };
+
+
+            let controls = {};
+            controls.addProduct = function(product){
+                productList.push(product);
+                let thisHtml = viewProduct(product);
+                dom.attach(nodes.main, thisHtml);
+            }
+
+            let dom = {};
+            dom.attach = function(target, html){
+                target.innerHTML = target.innerHTML + html;
+            }
+
+            function createPopup (html) {
+                let popupNode = document.createElement('div');
+                popupNode.classList.add('popup');
+                popupNode.innerHTML = `
+                    <span class="popup--button" onclick="this.parentNode.remove()">&times; Close</span>
+                    <article>
+                        ${html}
+                    </article> `;
+                // popupNode.querySelector('article').innerHTML = html;
+                // popupNode.classList.add('active');
+                document.body.appendChild(popupNode);
+            }
+
+            function showProduct(productID, list){
+                let html = "";
+                list.forEach(function(item){
+                    if(item.id == productID){
+                        html = viewProduct(item);                       
+                    }
+                });
+                createPopup(html)
+            }
+
+            function viewProduct(product,settings){
+                if(settings == undefined)
+                    settings = {};
+                if(settings.display == undefined)
+                    settings.display = {};
+                let defaultImage = "https://www.nextpoint.co.uk/-/img/logo.png"
+                // let displayImage = product.image
+                // if(displayImage == undefined)
+                //     displayImage = "https://www.nextpoint.co.uk/-/img/logo.png";
+                
+               
+                let html = `<div class='product' onclick='showProduct(${product.id}, productList)'>`;
+                html = html + `<h3 onclick='alert("${product.name}");'>${product.name}</h3>`;
+                html = html + `<img src="${ product.image || defaultImage
+                //     let displayImage = product.image
+                // if(displayImage == undefined)
+                //     displayImage = "https://www.nextpoint.co.uk/-/img/logo.png";
+                // return displayImage; 
+            // })()
+        }" alt="Picture of ${product.name}" />`;
+        html = html + `<span class="picture" style="background-image:url(${product.image || defaultImage})"></span>`;
+                html = html + `<p>Price: &pound;${product.price}</p>`;
+                if(settings.display.options !== false){
+                    html = html + "<p>Options:</p><ul>";
+                    for(let i2=0; i2<product.options.length; i2=i2+1){
+                        html = html + `<li>${product.options[i2]}</li>`;
+                        
+                    }
+                    html = html + "</ul>";
+                }
+                html = html + "</div>";
+                return html;
+            }
+
+
+            // OUTPUT: main page content
+            let pageHtml = "";
+
+            for(let i=0; i<productList.length; i=i+1){
+                console.log( productList[i].name );
+                pageHtml = pageHtml + viewProduct(productList[i]);
+            }
+
+            dom.attach(nodes.main, pageHtml);
+
+
+            // OUTPUT: promotion item
+            dom.attach(nodes.featuredPromo, viewProduct(productList[1], {
+                display:{
+                    options:false
+                }
+            }) );
+
+            dom.attach(nodes.featuredPromo, viewProduct(productList[3], {
+                display:{
+                    options:false
+                }
+            }) );
+
+           
+
+
+            // SLIDESHOW CONTROL CODE
+            setInterval(function(){
+                let slideshowList = document.querySelectorAll(".slideshow");
+
+                slideshowList.forEach(function(parent){
+                    let nextActiveNode = parent.querySelector(".slideshow > .active + *");
+                    let previousNode = parent.querySelector(".slideshow > .active");
+                    if(previousNode != null){
+                        previousNode.classList.remove("active");
+                    }
+                    if(nextActiveNode == null){
+                        parent.querySelector(".slideshow > *").classList.add("active");
+                    }else{
+                        nextActiveNode.classList.add("active");
+                    }
+                });
+            },5000);
+        </script>
+    </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+            <style>
+                main {
+                    font-size: 20px;
+                }
+                main img {
+                    width: 10em;
+                    display: inline-block;
+                }
+                .inlineBlock {
+                    display: inline-block;
+                }
+
+                .big {
+                    width: 20em
+                }
+                .small {
+                    width: 5em;
+                }
+                header{
+                    background: silver;
+                    font-size: 10px;
+                }
+    
+                .product{
+                    display: inline-block;
+                margin: .5em;
+                border: 5px solid black;
+                /*width: calc(33% - 10px - 1em);*/
+                width: 15em;
+                }
+
+                .product:hover{
+                background: silver;
+                border-color: red;
+            }
+
+                footer {
+                    font-size: 10px;
+                }
+    
+                @media screen and (max-width: 500px){
+                    header{
+                        background: red;
+                    }
+                    .product {
+                        display: block;
+                        width: calc(100% - 1em - 10px);
+                    }
+                }
+
+                @media print {
+                    body {
+                        color: gray;
+                    } 
+                }
+    
+            </style>
+            
+        </head>
+        <body>
+            <nav>
+                This is the navigation section...
+            </nav>
+    
+            <header>
+                <h1>Featured Product:</h1>
+                This is special promotion...
+            </header>
+    
+            <div>
+                Name: <input type="text" onchange="data.name = this.value" value="abc" />
+                Price: <input type="number" onchange="data.price = this.value" />
+                Options: <input type="text" onchange="data.options = this.value.split(',')" />
+                <input type="button" value="Add Product" onclick="controls.addProduct(data)" />
+            </div>
+            
+            <main class="inlineBlock">
+                This is the main section...
+                <img class="big" src="https://image.shutterstock.com/image-vector/woman-man-clothes-accessories-collection-260nw-1487306057.jpg" alt="">
+                <img class="small" src="https://image.shutterstock.com/image-vector/woman-man-clothes-accessories-collection-260nw-1487306057.jpg" alt="">
+                
+                <h2>Category: Wearables</h2>
+                <p>This is some type of introduction to the category....</p>
+            </main>
+    
+            <footer>
+                This is the footer...
+            </footer>
+    
+            <script>
+                let data = {};
+    
+                let productList = [
+                    {id:"101", name:"shoes", price:10, options:["red","black","green"]},
+                    {id:"102", name:"jacket", price:20, options:["yellow","blue","orange"]},
+                    {id:"103", name:"skirt", price:35, options:["red","blue","white","black"]},
+                    {id:"104", name:"jumper", price:35, options:["red","blue","white","black"]}
+                ];
+    
+                let nodes = {
+                    "featuredPromo": document.querySelector("header"),
+                    "main": document.querySelector("main")
+                };
+    
+    
+                let controls = {};
+                controls.addProduct = function(product){
+                    productList.push(product);
+                    let thisHtml = viewProduct(product);
+                    dom.attach(nodes.main, thisHtml);
+                }
+    
+                let dom = {};
+                dom.attach = function(target, html){
+                    target.innerHTML = target.innerHTML + html;
+                }
+    
+                function viewProduct(product,settings){
+                    if(settings == undefined)
+                        settings = {};
+                    if(settings.display == undefined)
+                        settings.display = {};
+                    
+                    let html = "<div class='product'>";
+                    html = html + `<h3 onclick='alert("${product.name}");'>${product.name}</h3>`;
+                    html = html + `<p>Price: &pound;${product.price}</p>`;
+                    if(settings.display.options !== false){
+                        html = html + "<p>Options:</p><ul>";
+                        for(let i2=0; i2<product.options.length; i2=i2+1){
+                            html = html + `<li>${product.options[i2]}</li>`;
+                            
+                        }
+                        html = html + "</ul>";
+                    }
+                    html = html + "</div>";
+                    return html;
+                }
+    
+    
+                // OUTPUT: main page content
+                let pageHtml = "";
+    
+                for(let i=0; i<productList.length; i=i+1){
+                    console.log( productList[i].name );
+                    pageHtml = pageHtml + viewProduct(productList[i]);
+                }
+    
+                dom.attach(nodes.main, pageHtml);
+    
+    
+                // OUTPUT: promotion item
+                dom.attach(nodes.featuredPromo, viewProduct(productList[1], {
+                    display:{
+                        options:false
+                    }
+                }) );
+            </script>
+        </body>
+    </html> -->
