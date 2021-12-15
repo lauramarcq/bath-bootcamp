@@ -203,11 +203,70 @@
                 position: fixed;
                 z-index: 1;
             }
+            .flex-practice {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                height: 60%;
+                width: 60%;
+                border: 10px solid blueviolet;
+                align-content: space-around;
+                /* gap: 10px; */
+            }
+            .flex-practice > * {
+                background-color: aqua;
+                border: 10px solid black;
+                padding: 10px;
+                /* max-width: 5em; */
+                /* flex-grow: 1; */
+                text-align: center;
+                
+                
+            }
+            .flex-practice h> *:nth-child(8) {
+                flex-basis:5rem;
+            }
+
+            .flex-section {
+                border: 10px solid black;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .flex-nav {
+                height: 100%;
+                border: 5px solid red;
+                flex-basis: 20%;
+            }
+            .flex-nav > * {
+                display: block;
+            }
+            .flex-main {
+                border: 5px solid blue;
+                flex-grow: 2;
+            }
+            /* .flex-main > * {
+                display: block;
+                text-align: center;
+            } */
 
         </style>
         
     </head>
     <body>
+        <section class="flex-section">
+            <nav class="flex-nav">
+                <a href='#'>Option 1</a>
+                <a href='#'>Option 2</a>
+                <a href='#'>Option 3</a>
+                <a href='#'>Option 4</a>
+            </nav>
+            <main class="flex-main">
+                <div>main content</div>
+            </main>
+        </section>
+
         <nav>
             This is the navigation section...
         </nav>
@@ -225,6 +284,17 @@
             Options: <input type="text" onchange="data.options = this.value.split(',')" />
             <input type="button" value="Add Product" onclick="controls.addProduct(data)" />
         </div>
+
+        <section class="flex-practice">
+            <h2>Item 1 qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq</h2>
+            <h2 id="item2">Item 2</h2>
+            <h2>Item 3</h2>
+            <h2>Item 4 </h2>
+            <h2>Item 5</h2>
+            <h2>Item 6</h2>
+            <h2>Item 7</h2>
+            <h2>Item 8</h2>
+        </section>
 
         <div class="display-padded display-highlight-bg display-size-width50">
             <h2>Promotion box...</h2>
